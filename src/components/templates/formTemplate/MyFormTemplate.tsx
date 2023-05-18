@@ -1,8 +1,8 @@
 import { Container } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import MyCustomFormBox from "../../organisms/formBox/MyCustomFormBox";
 //organisms
-import MyZodCustomFormBox from "../../organisms/zodFormBox/MyZodCustomFormBox";
 
 function MyFormTemplate() {
   return (
@@ -10,7 +10,7 @@ function MyFormTemplate() {
       <Container className="content">
         <Row>
           <Col md="auto">
-            <MyZodCustomFormBox />
+            <MyCustomFormBox />
           </Col>
         </Row>
       </Container>
