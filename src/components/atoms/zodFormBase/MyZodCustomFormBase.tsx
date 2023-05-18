@@ -35,6 +35,7 @@ function MyCustomFormBase() {
     });
     setAlert(true);
   }
+
   function valida() {
     if (
       form.cognome === "" ||
