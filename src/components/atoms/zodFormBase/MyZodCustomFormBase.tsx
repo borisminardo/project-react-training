@@ -23,7 +23,6 @@ function MyCustomFormBase() {
   });
 
   const [alert, setAlert] = useState(false);
-  //test commit
   function handleValidForm(event: any) {
     event.preventDefault();
     setFormError({
@@ -51,6 +50,7 @@ function MyCustomFormBase() {
 
   return (
     <>
+      <hr />
       <form onSubmit={handleValidForm} className="form-width">
         <div className="form--row">
           <NomeInput
