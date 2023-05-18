@@ -23,16 +23,25 @@ function MyCustomFormBase() {
   });
 
   const [alert, setAlert] = useState(false);
+
+  // al submit del button
   function handleValidForm(event: any) {
     event.preventDefault();
-    setFormError({
-      ...formError,
-      nome: form.nome === "",
-      cognome: form.cognome === "",
-      telefono: form.telefono === "",
-      email: form.email === "",
-    });
-    setAlert(true);
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(form.email)) {
+      setFormError({
+        ...formError,
+        email: true,
+      });
+      setAlert(false);
+      console.log(formError);
+    } else {
+      setFormError({
+        ...formError,
+        email: false,
+      });
+      setAlert(true);
+      console.log(form);
+    }
   }
 
   function valida() {
@@ -41,6 +50,7 @@ function MyCustomFormBase() {
       form.nome === "" ||
       form.telefono === "" ||
       form.email === ""
+      /* !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(form.email) */
     ) {
       return true;
     } else {
@@ -107,7 +117,7 @@ function MyCustomFormBase() {
             id="email"
             stile="color-red"
             className=""
-            errormessage={formError.email ? "Errore nella email" : ""}
+            errormessage={formError.email ? "Formato email invalido" : ""}
             value={form.email}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               const val = event.target.value;
@@ -128,10 +138,14 @@ function MyCustomFormBase() {
           key={"success"}
           variant={"success"}
         >
-          Success!
+          Submitted!
         </Alert>
       )}
-      <MyDebuggerObj className="mt-3" obj={form}></MyDebuggerObj>
+      <MyDebuggerObj
+        className="mt-3"
+        obj={form}
+        submitted={alert}
+      ></MyDebuggerObj>
     </>
   );
 }
