@@ -179,7 +179,7 @@ function MyCustomFormBase() {
           }}
         ></CountrySelect>
         <MyHeader
-          text="Notifications"
+          text="Notifiche"
           paragraf=" Ti avviseremo di cambiamenti importanti, ma sceglierai tu cos'altro
           vuoi ricevere."
         ></MyHeader>{" "}
@@ -196,7 +196,7 @@ function MyCustomFormBase() {
         <div className="padding--top">
           <BaseGroupRadioButton
             name="radioButton"
-            title="Invia notifiche"
+            title="Ricevi notifiche"
             values={radioButtonValues}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               const val = parseInt(event.target.value);
