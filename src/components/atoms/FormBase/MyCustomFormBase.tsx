@@ -12,6 +12,8 @@ import { selectValues } from "../../../interfaces/viewModel/selectValues";
 import BaseGroupCheckBox from "../baseUi/BaseGroupCheckBox";
 import { checkBoxValues } from "../../../interfaces/viewModel/checkBoxNotificationValues";
 import MyHeader from "../header/MyHeader";
+import { radioButtonValues } from "../../../interfaces/viewModel/radioButtonNotificationValues";
+import BaseGroupRadioButton from "../baseUi/BaseGroupRadioButton";
 
 function MyCustomFormBase() {
   //seleziona valore di default da 'selectValues'
@@ -26,7 +28,8 @@ function MyCustomFormBase() {
     email: "",
     descrizione: "",
     paese: defaultValue,
-    notificationPush: [1, 2, 3],
+    notificationCheckBox: [],
+    notificationRadio: 0,
   });
 
   const [formError, setFormError] = useState({
@@ -36,7 +39,8 @@ function MyCustomFormBase() {
     email: false,
     descrizione: false,
     paese: false,
-    notificationPush: false,
+    notificationCheckBox: false,
+    notificationRadio: false,
   });
 
   const [alert, setAlert] = useState(false);
@@ -67,7 +71,8 @@ function MyCustomFormBase() {
       form.nome === "" ||
       form.telefono === "" ||
       form.email === "" ||
-      form.paese === 0
+      form.paese === 0 ||
+      form.notificationRadio === 0
     ) {
       return true;
     } else {
@@ -183,10 +188,21 @@ function MyCustomFormBase() {
             title="Per Email"
             values={checkBoxValues}
             onChange={(selected: any) => {
-              setForm({ ...form, notificationPush: selected });
+              setForm({ ...form, notificationCheckBox: selected });
               setAlert(false);
             }}
           ></BaseGroupCheckBox>
+        </div>
+        <div className="padding--top">
+          <BaseGroupRadioButton
+            name="radioButton"
+            title="Invia notifiche"
+            values={radioButtonValues}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              const val = parseInt(event.target.value);
+              setForm({ ...form, notificationRadio: val });
+            }}
+          ></BaseGroupRadioButton>
         </div>
         <MyFormButton
           disable={valida()}

@@ -22,6 +22,15 @@ export interface MyCheckboxProps {
   [otherProps: string]: unknown;
 }
 
+export interface MyRadioButtonProps {
+  value: string;
+  lableName: string;
+  description: string;
+  id: string;
+  name: string;
+  [otherProps: string]: unknown;
+}
+
 export type InputBaseProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
