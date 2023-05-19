@@ -145,6 +145,10 @@ button:active {
     font-size: medium;
   }
 
+  select{
+    width: 100px;
+  }
+
 
 @media (prefers-color-scheme: light) {
   :root {
