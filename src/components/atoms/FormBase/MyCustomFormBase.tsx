@@ -6,6 +6,7 @@ import TelefonoInput from "../telefonoInput/TelefonoInput";
 import EmailInput from "../emailInput/EmailInput";
 import MyDebuggerObj from "../../../shared/debuggerPrinter/MyDebuggerObj";
 import MyFormButton from "../formButton/MyFormButton";
+import DescriptionTextArea from "../descriptionTextArea/DescriptionTextArea";
 
 function MyCustomFormBase() {
   const [form, setForm] = useState({
@@ -13,6 +14,7 @@ function MyCustomFormBase() {
     cognome: "",
     telefono: "",
     email: "",
+    descrizione: "",
   });
 
   const [formError, setFormError] = useState({
@@ -20,6 +22,7 @@ function MyCustomFormBase() {
     cognome: false,
     telefono: false,
     email: false,
+    descrizione: false,
   });
 
   const [alert, setAlert] = useState(false);
@@ -61,12 +64,12 @@ function MyCustomFormBase() {
   return (
     <>
       <hr />
-      <form onSubmit={handleValidForm} className="form-width">
+      <form onSubmit={handleValidForm}>
         <div className="form--row">
           <NomeInput
             className=""
             type="text"
-            labelname="Nome"
+            labelname="Nome*"
             id="nome"
             stile="color-red"
             errormessage={formError.nome ? "Nome obbligatorio" : ""}
@@ -81,7 +84,7 @@ function MyCustomFormBase() {
         <div className="form--row">
           <CognomeInput
             type="text"
-            labelname="Cognome"
+            labelname="Cognome*"
             id="cognome"
             className=""
             stile="color-red"
@@ -97,7 +100,7 @@ function MyCustomFormBase() {
         <div className="form--row">
           <TelefonoInput
             type="text"
-            labelname="Telefono"
+            labelname="Telefono*"
             id="telefono"
             className=""
             stile="color-red"
@@ -113,7 +116,7 @@ function MyCustomFormBase() {
         <div className="form--row">
           <EmailInput
             type="text"
-            labelname="Email"
+            labelname="Email*"
             id="email"
             stile="color-red"
             className=""
@@ -125,6 +128,24 @@ function MyCustomFormBase() {
               setAlert(false);
             }}
           ></EmailInput>
+        </div>
+        <div className="description--row">
+          <DescriptionTextArea
+            labelname="Descrizione"
+            id="description"
+            stile="color-red"
+            textHint="Scrivi qualcosa su di te..."
+            className=""
+            errormessage={
+              formError.descrizione ? "Errore nella descrizione" : ""
+            }
+            value={form.descrizione}
+            onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+              const val = event.target.value;
+              setForm({ ...form, descrizione: val });
+              setAlert(false);
+            }}
+          ></DescriptionTextArea>
         </div>
         <MyFormButton
           disable={valida()}

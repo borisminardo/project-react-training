@@ -41,6 +41,10 @@ a:hover {
   margin-right:20px;
   width: 300px;
 }
+.description--row{
+  float:none;
+  margin-right:20px;
+}
 
 
 .header--box{
@@ -50,6 +54,19 @@ a:hover {
 
 input, label {
   display:block;
+}
+
+input{
+  border-style: solid;
+  border-color: rgb(166, 166, 166);
+}
+
+
+textarea{
+  height: 100px;
+  width: 100%;
+  border-radius: 4px;
+  border-color: rgb(166, 166, 166);
 }
 
 body {
@@ -108,6 +125,11 @@ button:active {
     transition: all 250ms linear 2s; 
   }
 
+  .textarea--textHint{
+    font-size: 14px !important;
+    color:rgb(154, 154, 154) !important;
+  }
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -121,9 +143,23 @@ button:active {
   }
 }
 
-@media only screen and (max-width: 600px) {
+/* Mobile */
+@media only screen and (min-width: 200px) and (max-width: 600px) {
   .form--row{
     float:none;
     margin-right:20px;
   }
+  textarea{
+    width: 186px;
+  }
 }
+
+/* IPads landscape mode */
+@media only screen and (min-width: 600px) and (max-width: 900px) {
+  textarea{
+    width: 393px;
+    height: 30px;
+  }
+}
+
+
