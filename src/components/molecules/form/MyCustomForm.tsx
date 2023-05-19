@@ -9,7 +9,6 @@ function MyCustomForm() {
   return (
     <>
       <Container className="container-width">
-        <MyHeader text="My form in React"></MyHeader>
         <Row className="row-align-center">
           <Col xs md="auto">
             <MyCustomFormBase></MyCustomFormBase>

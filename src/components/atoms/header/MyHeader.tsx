@@ -6,15 +6,15 @@ import Col from "react-bootstrap/Col";
 function MyHeader(prop: any) {
   return (
     <>
-      {/*   <Card body> */}
       <div className="header--box">
         <Row className="row-align-center">
-          <Col xs md="auto">
+          <Col>
             <h4>{prop.text}</h4>
+            <p>{prop.paragraf}</p>
+            <hr />
           </Col>
         </Row>
       </div>
-      {/* </Card> */}
     </>
   );
 }

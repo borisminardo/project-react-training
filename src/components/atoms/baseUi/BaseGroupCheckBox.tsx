@@ -3,6 +3,7 @@ import BaseCheckBox from "./BaseCheckBox";
 
 function BaseGroupCheckBox({
   values,
+  title,
   errorMessage,
   onChange,
   ...otherProps
@@ -26,7 +27,7 @@ function BaseGroupCheckBox({
   };
   return (
     <div>
-      {/*  <pre>{JSON.stringify(values, undefined, 2)}</pre> */}
+      <legend className="legend--bold"> {title}</legend>
       {values.map((checkbox: any) => {
         return (
           <BaseCheckBox

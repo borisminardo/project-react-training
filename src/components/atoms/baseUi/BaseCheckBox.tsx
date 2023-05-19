@@ -18,6 +18,7 @@ function BaseCheckBox({
     <>
       <div className="checkbox--group">
         <input
+          className="checkbox--input"
           {...otherProps}
           type="checkbox"
           id={id}

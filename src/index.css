@@ -50,7 +50,7 @@ padding-top: 10px;
 }
 
 .header--box{
-  padding: 40px 0 20px 0;
+  padding: 40px 0 0 0;
 }
 
 input, label {
@@ -140,6 +140,11 @@ button:active {
     margin-left : 10px
   }
 
+  .legend--bold{
+    font-weight: bold;
+    font-size: medium;
+  }
+
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -160,8 +165,12 @@ button:active {
     float:none;
     margin-right:20px;
   }
-  textarea{
-    width: 186px;
+  
+  input, textarea{
+    width:100%;
+  }
+  .checkbox--input{
+    width:12px;
   }
 }
 

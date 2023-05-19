@@ -11,6 +11,7 @@ import TelefonoInput from "../baseUiWrapper/telefonoInput/TelefonoInput";
 import { selectValues } from "../../../interfaces/viewModel/selectValues";
 import BaseGroupCheckBox from "../baseUi/BaseGroupCheckBox";
 import { checkBoxValues } from "../../../interfaces/viewModel/checkBoxNotificationValues";
+import MyHeader from "../header/MyHeader";
 
 function MyCustomFormBase() {
   //seleziona valore di default da 'selectValues'
@@ -76,7 +77,11 @@ function MyCustomFormBase() {
 
   return (
     <>
-      <hr />
+      <MyHeader
+        text="Profilo"
+        paragraf=" Queste informazioni verranno visualizzate pubblicamente, fai
+          attenzione a ciò che condividi."
+      ></MyHeader>{" "}
       <form onSubmit={handleValidForm}>
         <div className="form--row">
           <NomeInput
@@ -155,7 +160,6 @@ function MyCustomFormBase() {
             }}
           ></DescriptionTextArea>
         </div>
-
         <CountrySelect
           labelname="Paese*"
           id="paese"
@@ -169,8 +173,14 @@ function MyCustomFormBase() {
             setAlert(false);
           }}
         ></CountrySelect>
+        <MyHeader
+          text="Notifications"
+          paragraf=" Ti avviseremo di cambiamenti importanti, ma sceglierai tu cos'altro
+          vuoi ricevere."
+        ></MyHeader>{" "}
         <div className="padding--top">
           <BaseGroupCheckBox
+            title="Per Email"
             values={checkBoxValues}
             onChange={(selected: any) => {
               setForm({ ...form, notificationPush: selected });
