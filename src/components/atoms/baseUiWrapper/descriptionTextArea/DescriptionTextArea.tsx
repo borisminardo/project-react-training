@@ -1,12 +1,11 @@
 import {
   MyInputProps,
   TextAreaBaseProps,
-} from "../../../interfaces/inputProps/MyInputProps";
-import BaseTextArea from "../baseInput/BaseTextArea";
+} from "../../../../interfaces/inputProps/FormProps";
+import BaseTextArea from "../../baseUi/BaseTextArea";
 
 function DescriptionTextArea({
   labelname,
-  className,
   errormessage,
   id,
   value,
@@ -20,7 +19,6 @@ function DescriptionTextArea({
         {...otherProps}
         labelname={labelname}
         id={id}
-        className={className}
         value={value}
         placeholder={placeholder}
         errormessage={errormessage}

@@ -1,20 +1,31 @@
 import { useState } from "react";
 import Alert from "react-bootstrap/Alert";
-import NomeInput from "../nomeInput/NomeInput";
-import CognomeInput from "../cognomeInput/CognomeInput";
-import TelefonoInput from "../telefonoInput/TelefonoInput";
-import EmailInput from "../emailInput/EmailInput";
 import MyDebuggerObj from "../../../shared/debuggerPrinter/MyDebuggerObj";
 import MyFormButton from "../formButton/MyFormButton";
-import DescriptionTextArea from "../descriptionTextArea/DescriptionTextArea";
+import DescriptionTextArea from "../baseUiWrapper/descriptionTextArea/DescriptionTextArea";
+import CountrySelect from "../baseUiWrapper/countrySelect/CountrySelect";
+import CognomeInput from "../baseUiWrapper/cognomeInput/CognomeInput";
+import EmailInput from "../baseUiWrapper/emailInput/EmailInput";
+import NomeInput from "../baseUiWrapper/nomeInput/NomeInput";
+import TelefonoInput from "../baseUiWrapper/telefonoInput/TelefonoInput";
+import { selectValues } from "../../../interfaces/viewModel/selectValues";
+import BaseGroupCheckBox from "../baseUi/BaseGroupCheckBox";
+import { checkBoxValues } from "../../../interfaces/viewModel/checkBoxNotificationValues";
 
 function MyCustomFormBase() {
+  //seleziona valore di default da 'selectValues'
+  const defaultValue = selectValues.find((item) => item.defaultValue)
+    ? selectValues.find((item) => item.defaultValue)?.id
+    : 0;
+
   const [form, setForm] = useState({
     nome: "",
     cognome: "",
     telefono: "",
     email: "",
     descrizione: "",
+    paese: defaultValue,
+    notificationPush: [1, 2, 3],
   });
 
   const [formError, setFormError] = useState({
@@ -23,6 +34,8 @@ function MyCustomFormBase() {
     telefono: false,
     email: false,
     descrizione: false,
+    paese: false,
+    notificationPush: false,
   });
 
   const [alert, setAlert] = useState(false);
@@ -52,8 +65,8 @@ function MyCustomFormBase() {
       form.cognome === "" ||
       form.nome === "" ||
       form.telefono === "" ||
-      form.email === ""
-      /* !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(form.email) */
+      form.email === "" ||
+      form.paese === 0
     ) {
       return true;
     } else {
@@ -67,7 +80,6 @@ function MyCustomFormBase() {
       <form onSubmit={handleValidForm}>
         <div className="form--row">
           <NomeInput
-            className=""
             type="text"
             labelname="Nome*"
             id="nome"
@@ -86,7 +98,6 @@ function MyCustomFormBase() {
             type="text"
             labelname="Cognome*"
             id="cognome"
-            className=""
             stile="color-red"
             errormessage={formError.cognome ? "Cognome obbligatorio" : ""}
             value={form.cognome}
@@ -102,7 +113,6 @@ function MyCustomFormBase() {
             type="text"
             labelname="Telefono*"
             id="telefono"
-            className=""
             stile="color-red"
             errormessage={formError.telefono ? "Telefono obbligatorio" : ""}
             value={form.telefono}
@@ -119,7 +129,6 @@ function MyCustomFormBase() {
             labelname="Email*"
             id="email"
             stile="color-red"
-            className=""
             errormessage={formError.email ? "Formato email invalido" : ""}
             value={form.email}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,7 +144,6 @@ function MyCustomFormBase() {
             id="description"
             stile="color-red"
             textHint="Scrivi qualcosa su di te..."
-            className=""
             errormessage={
               formError.descrizione ? "Errore nella descrizione" : ""
             }
@@ -146,6 +154,29 @@ function MyCustomFormBase() {
               setAlert(false);
             }}
           ></DescriptionTextArea>
+        </div>
+
+        <CountrySelect
+          labelname="Paese*"
+          id="paese"
+          stile="color-red"
+          values={selectValues}
+          errormessage={formError.descrizione ? "Scelta obbligatoria" : ""}
+          defaultValue={defaultValue}
+          onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+            const val = parseInt(event.target.value);
+            setForm({ ...form, paese: val });
+            setAlert(false);
+          }}
+        ></CountrySelect>
+        <div className="padding--top">
+          <BaseGroupCheckBox
+            values={checkBoxValues}
+            onChange={(selected: any) => {
+              setForm({ ...form, notificationPush: selected });
+              setAlert(false);
+            }}
+          ></BaseGroupCheckBox>
         </div>
         <MyFormButton
           disable={valida()}

@@ -1,4 +1,4 @@
-import { MyInputProps } from "../../../interfaces/inputProps/MyInputProps";
+import { MyInputProps } from "../../../interfaces/inputProps/FormProps";
 
 type TextAreaBaseProps = React.DetailedHTMLProps<
   React.TextareaHTMLAttributes<HTMLTextAreaElement>,
@@ -8,7 +8,6 @@ type TextAreaBaseProps = React.DetailedHTMLProps<
 
 function BaseTextArea({
   labelname,
-  className,
   errormessage,
   id,
   textHint,

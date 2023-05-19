@@ -1,13 +1,11 @@
 import {
   InputBaseProps,
   MyInputProps,
-} from "../../../interfaces/inputProps/MyInputProps";
-import TextInputAZ from "../../../shared/onlyTextInputAZ/TextInputAZ";
-import BaseInput from "../baseInput/BaseInput";
+} from "../../../../interfaces/inputProps/FormProps";
+import BaseInput from "../../baseUi/BaseInput";
 
-function NomeInput({
+function EmailInput({
   labelname,
-  className,
   errormessage,
   type,
   id,
@@ -23,8 +21,7 @@ function NomeInput({
         labelname={labelname}
         type={type}
         id={id}
-        className={className}
-        value={TextInputAZ(value)}
+        value={value}
         placeholder={placeholder}
         errormessage={errormessage}
         onChange={onChange}
@@ -33,4 +30,4 @@ function NomeInput({
   );
 }
 
-export default NomeInput;
+export default EmailInput;

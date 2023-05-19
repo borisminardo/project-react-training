@@ -1,27 +1,24 @@
 import {
-  InputBaseProps,
   MyInputProps,
-} from "../../../interfaces/inputProps/MyInputProps";
-import BaseInput from "../baseInput/BaseInput";
+  TextAreaBaseProps,
+} from "../../../../interfaces/inputProps/FormProps";
+import BaseTextArea from "../../baseUi/BaseTextArea";
 
-function EmailInput({
+function DescriptionTextArea({
   labelname,
   className,
   errormessage,
-  type,
   id,
   value,
   placeholder,
   onChange,
   ...otherProps
-}: InputBaseProps & MyInputProps) {
-  let emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+}: TextAreaBaseProps & MyInputProps) {
   return (
     <>
-      <BaseInput
+      <BaseTextArea
         {...otherProps}
         labelname={labelname}
-        type={type}
         id={id}
         className={className}
         value={value}
@@ -33,4 +30,4 @@ function EmailInput({
   );
 }
 
-export default EmailInput;
+export default DescriptionTextArea;

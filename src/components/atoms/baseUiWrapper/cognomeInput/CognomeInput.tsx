@@ -1,13 +1,12 @@
 import {
   InputBaseProps,
   MyInputProps,
-} from "../../../interfaces/inputProps/MyInputProps";
-import TextInputAZ from "../../../shared/onlyTextInputAZ/TextInputAZ";
-import BaseInput from "../baseInput/BaseInput";
+} from "../../../../interfaces/inputProps/FormProps";
+import TextInputAZ from "../../../../shared/onlyTextInputAZ/TextInputAZ";
+import BaseInput from "../../baseUi/BaseInput";
 
 function CognomeInput({
   labelname,
-  className,
   errormessage,
   type,
   id,
@@ -23,7 +22,6 @@ function CognomeInput({
         labelname={labelname}
         type={type}
         id={id}
-        className={className}
         value={TextInputAZ(value)}
         placeholder={placeholder}
         errormessage={errormessage}

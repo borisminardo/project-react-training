@@ -1,4 +1,4 @@
-import { InputButton } from "../../../interfaces/inputProps/MyInputProps";
+import { InputButton } from "../../../interfaces/inputProps/FormProps";
 interface MyProps {
   disable: boolean;
   titolo: string;

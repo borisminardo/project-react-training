@@ -1,4 +1,4 @@
-import { MyInputProps } from "../../../interfaces/inputProps/MyInputProps";
+import { MyInputProps } from "../../../interfaces/inputProps/FormProps";
 
 type InputBaseProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -8,7 +8,6 @@ type InputBaseProps = React.DetailedHTMLProps<
 
 function BaseInput({
   labelname,
-  className,
   errormessage,
   type,
   id,

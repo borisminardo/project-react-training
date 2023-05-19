@@ -1,13 +1,12 @@
 import {
   InputBaseProps,
   MyInputProps,
-} from "../../../interfaces/inputProps/MyInputProps";
-import OnlyNumberInput from "../../../shared/onlyNumberInput/OnlyNumberInput";
-import BaseInput from "../baseInput/BaseInput";
+} from "../../../../interfaces/inputProps/FormProps";
+import OnlyNumberInput from "../../../../shared/onlyNumberInput/OnlyNumberInput";
+import BaseInput from "../../baseUi/BaseInput";
 
 function TelefonoInput({
   labelname,
-  className,
   errormessage,
   type,
   id,
@@ -23,7 +22,6 @@ function TelefonoInput({
         labelname={labelname}
         type={type}
         id={id}
-        className={className}
         value={OnlyNumberInput(value)}
         placeholder={placeholder}
         errormessage={errormessage}
