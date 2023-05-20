@@ -9,7 +9,7 @@ function MyHeader(prop: any) {
       <div className="header--box">
         <Row className="row-align-center">
           <Col>
-            <h4>{prop.text}</h4>
+            <h2>{prop.text}</h2>
             <p>{prop.paragraf}</p>
             <hr />
           </Col>

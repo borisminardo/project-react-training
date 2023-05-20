@@ -182,7 +182,7 @@ function MyCustomFormBase() {
           text="Notifiche"
           paragraf=" Ti avviseremo di cambiamenti importanti, ma sceglierai tu cos'altro
           vuoi ricevere."
-        ></MyHeader>{" "}
+        ></MyHeader>
         <div className="padding--top">
           <BaseGroupCheckBox
             title="Per Email"
