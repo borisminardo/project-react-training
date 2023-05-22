@@ -14,6 +14,7 @@ import { checkBoxValues } from "../../../interfaces/viewModel/checkBoxNotificati
 import MyHeader from "../header/MyHeader";
 import { radioButtonValues } from "../../../interfaces/viewModel/radioButtonNotificationValues";
 import BaseGroupRadioButton from "../baseUi/BaseGroupRadioButton";
+import BaseInputFiles from "../baseUi/BaseInputFiles";
 
 function MyCustomFormBase() {
   //seleziona valore di default da 'selectValues'
@@ -30,6 +31,7 @@ function MyCustomFormBase() {
     paese: defaultValue,
     notificationCheckBox: [],
     notificationRadio: 0,
+    files: [],
   });
 
   const [formError, setFormError] = useState({
@@ -41,6 +43,7 @@ function MyCustomFormBase() {
     paese: false,
     notificationCheckBox: false,
     notificationRadio: false,
+    files: false,
   });
 
   const [alert, setAlert] = useState(false);
@@ -84,8 +87,7 @@ function MyCustomFormBase() {
     <>
       <MyHeader
         text="Profilo"
-        paragraf=" Queste informazioni verranno visualizzate pubblicamente, fai
-          attenzione a ciò che condividi."
+        paragraf="Questo è un esempio di form creato con React, puoi compilarlo e validarlo."
       ></MyHeader>{" "}
       <form onSubmit={handleValidForm}>
         <div className="form--row">
@@ -180,8 +182,7 @@ function MyCustomFormBase() {
         ></CountrySelect>
         <MyHeader
           text="Notifiche"
-          paragraf=" Ti avviseremo di cambiamenti importanti, ma sceglierai tu cos'altro
-          vuoi ricevere."
+          paragraf=" Puoi selezionare le check box e un radio button, oltre a poter caricare dei files."
         ></MyHeader>
         <div className="padding--top">
           <BaseGroupCheckBox
@@ -196,13 +197,22 @@ function MyCustomFormBase() {
         <div className="padding--top">
           <BaseGroupRadioButton
             name="radioButton"
-            title="Ricevi notifiche"
+            title="Ricevi notifiche*"
             values={radioButtonValues}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               const val = parseInt(event.target.value);
               setForm({ ...form, notificationRadio: val });
             }}
           ></BaseGroupRadioButton>
+        </div>
+        <div className="padding--top">
+          <BaseInputFiles
+            id="myFile"
+            label="Aggiungi dei file"
+            onAddFile={(files: []) => {
+              setForm({ ...form, files: files });
+            }}
+          ></BaseInputFiles>
         </div>
         <MyFormButton
           disable={valida()}
