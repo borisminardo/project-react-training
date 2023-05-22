@@ -95,6 +95,10 @@ input{
   border-style: solid;
 }
 
+.input--emailerror{
+  border-color: red !important;
+}
+
 textarea{
   height: 100px;
   width: 100%;

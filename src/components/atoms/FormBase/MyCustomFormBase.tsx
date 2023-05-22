@@ -141,6 +141,7 @@ function MyCustomFormBase() {
             labelname="Email*"
             id="email"
             stile="color-red"
+            error={formError.email}
             errormessage={formError.email ? "Formato email invalido" : ""}
             value={form.email}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {

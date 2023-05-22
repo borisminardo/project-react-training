@@ -8,6 +8,7 @@ type InputBaseProps = React.DetailedHTMLProps<
 
 function BaseInput({
   labelname,
+  error,
   errormessage,
   type,
   id,
@@ -26,6 +27,7 @@ function BaseInput({
       <label className="label-width" htmlFor={id}>
         {labelname}
         <input
+          className={id === "email" && error ? "input--emailerror" : ""}
           {...otherProps}
           type={type}
           id={id}

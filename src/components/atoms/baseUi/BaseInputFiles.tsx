@@ -5,7 +5,6 @@ interface MyProps {
   id: string | undefined;
   label: string;
   onAddFile: Function;
-  onRemoveFile: Function;
 }
 
 function BaseInputFiles({ id, onAddFile, label }: MyProps) {
