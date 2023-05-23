@@ -3,9 +3,10 @@ import {
   MyInputProps,
 } from "../../../../interfaces/inputProps/FormProps";
 import OnlyNumberInput from "../../../../shared/onlyNumberInput/OnlyNumberInput";
+import TextInputAZ from "../../../../shared/onlyTextInputAZ/TextInputAZ";
 import BaseInput from "../../baseUi/BaseInput";
 
-function TelefonoInput({
+function UIinput({
   labelname,
   errormessage,
   type,
@@ -22,7 +23,13 @@ function TelefonoInput({
         labelname={labelname}
         type={type}
         id={id}
-        value={OnlyNumberInput(value)}
+        value={
+          type === "text" && (id === "nome" || id == "cognome")
+            ? TextInputAZ(value)
+            : type === "number"
+            ? OnlyNumberInput(value)
+            : value
+        }
         placeholder={placeholder}
         errormessage={errormessage}
         onChange={onChange}
@@ -31,4 +38,4 @@ function TelefonoInput({
   );
 }
 
-export default TelefonoInput;
+export default UIinput;

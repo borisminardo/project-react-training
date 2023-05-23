@@ -3,13 +3,7 @@ import { Container } from "react-bootstrap";
 import MyCustomForm from "../../molecules/form/MyCustomForm";
 
 function MyCustomFormBox() {
-  return (
-    <>
-      <Container>
-        <MyCustomForm></MyCustomForm>
-      </Container>
-    </>
-  );
+  return <MyCustomForm></MyCustomForm>;
 }
 
 export default MyCustomFormBox;

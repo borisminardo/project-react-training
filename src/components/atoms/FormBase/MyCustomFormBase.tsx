@@ -4,10 +4,6 @@ import MyDebuggerObj from "../../../shared/debuggerPrinter/MyDebuggerObj";
 import MyFormButton from "../formButton/MyFormButton";
 import DescriptionTextArea from "../baseUiWrapper/descriptionTextArea/DescriptionTextArea";
 import CountrySelect from "../baseUiWrapper/countrySelect/CountrySelect";
-import CognomeInput from "../baseUiWrapper/cognomeInput/CognomeInput";
-import EmailInput from "../baseUiWrapper/emailInput/EmailInput";
-import NomeInput from "../baseUiWrapper/nomeInput/NomeInput";
-import TelefonoInput from "../baseUiWrapper/telefonoInput/TelefonoInput";
 import { selectValues } from "../../../interfaces/viewModel/selectValues";
 import BaseGroupCheckBox from "../baseUi/BaseGroupCheckBox";
 import { checkBoxValues } from "../../../interfaces/viewModel/checkBoxNotificationValues";
@@ -15,6 +11,7 @@ import MyHeader from "../header/MyHeader";
 import { radioButtonValues } from "../../../interfaces/viewModel/radioButtonNotificationValues";
 import BaseGroupRadioButton from "../baseUi/BaseGroupRadioButton";
 import BaseInputFiles from "../baseUi/BaseInputFiles";
+import UIinput from "../baseUiWrapper/input/UIinput";
 
 function MyCustomFormBase() {
   //seleziona valore di default da 'selectValues'
@@ -84,14 +81,14 @@ function MyCustomFormBase() {
   }
 
   return (
-    <>
+    <div className="content container">
       <MyHeader
         text="Profilo"
         paragraf="Questo è un esempio di form creato con React, puoi compilarlo e validarlo."
-      ></MyHeader>{" "}
+      ></MyHeader>
       <form onSubmit={handleValidForm}>
         <div className="form--row">
-          <NomeInput
+          <UIinput
             type="text"
             labelname="Nome*"
             id="nome"
@@ -103,10 +100,10 @@ function MyCustomFormBase() {
               setForm({ ...form, nome: val });
               setAlert(false);
             }}
-          ></NomeInput>
+          ></UIinput>
         </div>
         <div className="form--row">
-          <CognomeInput
+          <UIinput
             type="text"
             labelname="Cognome*"
             id="cognome"
@@ -118,10 +115,10 @@ function MyCustomFormBase() {
               setForm({ ...form, cognome: val });
               setAlert(false);
             }}
-          ></CognomeInput>
+          ></UIinput>
         </div>
         <div className="form--row">
-          <TelefonoInput
+          <UIinput
             type="text"
             labelname="Telefono*"
             id="telefono"
@@ -133,10 +130,10 @@ function MyCustomFormBase() {
               setForm({ ...form, telefono: val });
               setAlert(false);
             }}
-          ></TelefonoInput>
+          ></UIinput>
         </div>
         <div className="form--row">
-          <EmailInput
+          <UIinput
             type="text"
             labelname="Email*"
             id="email"
@@ -149,7 +146,7 @@ function MyCustomFormBase() {
               setForm({ ...form, email: val });
               setAlert(false);
             }}
-          ></EmailInput>
+          ></UIinput>
         </div>
         <div className="description--row">
           <DescriptionTextArea
@@ -214,13 +211,14 @@ function MyCustomFormBase() {
               setForm({ ...form, files: files });
             }}
           ></BaseInputFiles>
-        </div>
+        </div>{" "}
         <MyFormButton
           disable={valida()}
           type="submit"
           titolo="Valida"
         ></MyFormButton>
       </form>
+
       {alert && (
         <Alert
           style={{ marginTop: "20px" }}
@@ -235,7 +233,7 @@ function MyCustomFormBase() {
         obj={form}
         submitted={alert}
       ></MyDebuggerObj>
-    </>
+    </div>
   );
 }
 
