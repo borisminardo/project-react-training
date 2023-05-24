@@ -15,6 +15,9 @@ export default function UINavbar() {
           <Link to="/step-form" className="ui--navbar-links">
             Step form
           </Link>
+          <Link to="/tabella" className="ui--navbar-links">
+            Tabella
+          </Link>
         </ul>
         <div className="ui--navbar-right ui--navbar-profile">
           <p>By. Boris Maria Minardo Incitti</p>
