@@ -81,159 +81,166 @@ function MyCustomFormBase() {
   }
 
   return (
-    <div className="content container">
-      <MyHeader
-        text="Profilo"
-        paragraf="Questo è un esempio di form creato con React, puoi compilarlo e validarlo."
-      ></MyHeader>
-      <form onSubmit={handleValidForm}>
-        <div className="form--row">
-          <UIinput
-            type="text"
-            labelname="Nome*"
-            id="nome"
-            stile="color-red"
-            errormessage={formError.nome ? "Nome obbligatorio" : ""}
-            value={form.nome}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              const val = event.target.value;
-              setForm({ ...form, nome: val });
-              setAlert(false);
-            }}
-          ></UIinput>
-        </div>
-        <div className="form--row">
-          <UIinput
-            type="text"
-            labelname="Cognome*"
-            id="cognome"
-            stile="color-red"
-            errormessage={formError.cognome ? "Cognome obbligatorio" : ""}
-            value={form.cognome}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              const val = event.target.value;
-              setForm({ ...form, cognome: val });
-              setAlert(false);
-            }}
-          ></UIinput>
-        </div>
-        <div className="form--row">
-          <UIinput
-            type="text"
-            labelname="Telefono*"
-            id="telefono"
-            stile="color-red"
-            errormessage={formError.telefono ? "Telefono obbligatorio" : ""}
-            value={form.telefono}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              const val = event.target.value;
-              setForm({ ...form, telefono: val });
-              setAlert(false);
-            }}
-          ></UIinput>
-        </div>
-        <div className="form--row">
-          <UIinput
-            type="text"
-            labelname="Email*"
-            id="email"
-            stile="color-red"
-            error={formError.email}
-            errormessage={formError.email ? "Formato email invalido" : ""}
-            value={form.email}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              const val = event.target.value;
-              setForm({ ...form, email: val });
-              setAlert(false);
-            }}
-          ></UIinput>
-        </div>
-        <div className="description--row">
-          <DescriptionTextArea
-            labelname="Descrizione"
-            id="description"
-            stile="color-red"
-            textHint="Scrivi qualcosa su di te..."
-            errormessage={
-              formError.descrizione ? "Errore nella descrizione" : ""
-            }
-            value={form.descrizione}
-            onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
-              const val = event.target.value;
-              setForm({ ...form, descrizione: val });
-              setAlert(false);
-            }}
-          ></DescriptionTextArea>
-        </div>
-        <CountrySelect
-          labelname="Paese*"
-          id="paese"
-          stile="color-red"
-          values={selectValues}
-          errormessage={formError.descrizione ? "Scelta obbligatoria" : ""}
-          defaultValue={defaultValue}
-          onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-            const val = parseInt(event.target.value);
-            setForm({ ...form, paese: val });
-            setAlert(false);
-          }}
-        ></CountrySelect>
+    <>
+      <div className="content container">
         <MyHeader
-          text="Notifiche"
-          paragraf=" Puoi selezionare le check box e un radio button, oltre a poter caricare dei files."
+          text="Profilo"
+          paragraf="Questo è un esempio di form creato con React, puoi compilarlo e validarlo."
         ></MyHeader>
-        <div className="padding--top">
-          <BaseGroupCheckBox
-            title="Per Email"
-            values={checkBoxValues}
-            onChange={(selected: any) => {
-              setForm({ ...form, notificationCheckBox: selected });
+        <form onSubmit={handleValidForm}>
+          <div className="form--row">
+            <UIinput
+              type="text"
+              labelname="Nome*"
+              id="nome"
+              stile="color-red"
+              errormessage={formError.nome ? "Nome obbligatorio" : ""}
+              value={form.nome}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                const val = event.target.value;
+                setForm({ ...form, nome: val });
+                setAlert(false);
+              }}
+            ></UIinput>
+          </div>
+          <div className="form--row">
+            <UIinput
+              type="text"
+              labelname="Cognome*"
+              id="cognome"
+              stile="color-red"
+              errormessage={formError.cognome ? "Cognome obbligatorio" : ""}
+              value={form.cognome}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                const val = event.target.value;
+                setForm({ ...form, cognome: val });
+                setAlert(false);
+              }}
+            ></UIinput>
+          </div>
+          <div className="form--row">
+            <UIinput
+              type="text"
+              labelname="Telefono*"
+              id="telefono"
+              stile="color-red"
+              errormessage={formError.telefono ? "Telefono obbligatorio" : ""}
+              value={form.telefono}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                const val = event.target.value;
+                setForm({ ...form, telefono: val });
+                setAlert(false);
+              }}
+            ></UIinput>
+          </div>
+          <div className="form--row">
+            <UIinput
+              type="text"
+              labelname="Email*"
+              id="email"
+              stile="color-red"
+              error={formError.email}
+              errormessage={formError.email ? "Formato email invalido" : ""}
+              value={form.email}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                const val = event.target.value;
+                setForm({ ...form, email: val });
+                setAlert(false);
+              }}
+            ></UIinput>
+          </div>
+          <div className="description--row">
+            <DescriptionTextArea
+              labelname="Descrizione"
+              id="description"
+              stile="color-red"
+              textHint="Scrivi qualcosa su di te..."
+              errormessage={
+                formError.descrizione ? "Errore nella descrizione" : ""
+              }
+              value={form.descrizione}
+              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+                const val = event.target.value;
+                setForm({ ...form, descrizione: val });
+                setAlert(false);
+              }}
+            ></DescriptionTextArea>
+          </div>
+          <CountrySelect
+            labelname="Paese*"
+            id="paese"
+            stile="color-red"
+            values={selectValues}
+            errormessage={formError.descrizione ? "Scelta obbligatoria" : ""}
+            defaultValue={defaultValue}
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+              const val = parseInt(event.target.value);
+              setForm({ ...form, paese: val });
               setAlert(false);
             }}
-          ></BaseGroupCheckBox>
-        </div>
-        <div className="padding--top">
-          <BaseGroupRadioButton
-            name="radioButton"
-            title="Ricevi notifiche*"
-            values={radioButtonValues}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              const val = parseInt(event.target.value);
-              setForm({ ...form, notificationRadio: val });
-            }}
-          ></BaseGroupRadioButton>
-        </div>
-        <div className="padding--top">
-          <BaseInputFiles
-            id="myFile"
-            label="Aggiungi dei file"
-            onAddFile={(files: []) => {
-              setForm({ ...form, files: files });
-            }}
-          ></BaseInputFiles>
-        </div>{" "}
-        <MyFormButton
-          disable={valida()}
-          type="submit"
-          titolo="Valida"
-        ></MyFormButton>
-      </form>
-
-      {alert && (
-        <Alert
-          style={{ marginTop: "20px" }}
-          key={"success"}
-          variant={"success"}
-        >
-          Submitted!
-        </Alert>
-      )}
-      <MyDebuggerObj
-        className="mt-3"
-        obj={form}
-        submitted={alert}
-      ></MyDebuggerObj>
-    </div>
+          ></CountrySelect>
+          <MyHeader
+            text="Notifiche"
+            paragraf=" Puoi selezionare le check box e un radio button, oltre a poter caricare dei files."
+          ></MyHeader>
+          <div className="padding--top">
+            <BaseGroupCheckBox
+              title="Per Email"
+              values={checkBoxValues}
+              onChange={(selected: any) => {
+                setForm({ ...form, notificationCheckBox: selected });
+                setAlert(false);
+              }}
+            ></BaseGroupCheckBox>
+          </div>
+          <div className="padding--top">
+            <BaseGroupRadioButton
+              name="radioButton"
+              title="Ricevi notifiche*"
+              values={radioButtonValues}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                const val = parseInt(event.target.value);
+                setForm({ ...form, notificationRadio: val });
+                setAlert(false);
+              }}
+            ></BaseGroupRadioButton>
+          </div>
+          <div className="padding--top">
+            <BaseInputFiles
+              id="myFile"
+              label="Aggiungi dei file"
+              onAddFile={(files: []) => {
+                setForm({ ...form, files: files });
+                setAlert(false);
+              }}
+            ></BaseInputFiles>
+          </div>
+          {alert && (
+            <Alert
+              style={{ marginTop: "20px" }}
+              key={"success"}
+              variant={"success"}
+            >
+              Submitted!
+            </Alert>
+          )}
+          <div className="container--stepform-button">
+            <div style={{ marginTop: "10px" }}>
+              <MyFormButton
+                disable={valida()}
+                type="submit"
+                titolo="Valida"
+              ></MyFormButton>
+            </div>
+          </div>{" "}
+          <MyDebuggerObj
+            className="mt-3"
+            obj={form}
+            submitted={alert}
+          ></MyDebuggerObj>
+        </form>
+      </div>
+    </>
   );
 }
 

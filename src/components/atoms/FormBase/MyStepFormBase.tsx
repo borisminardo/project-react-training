@@ -93,11 +93,11 @@ function MyStepFormBase() {
           </div>
         </div>
       </form>
-      <MyDebuggerObj
+      {/* <MyDebuggerObj
         className="mt-3"
         obj={form}
         submitted={alert}
-      ></MyDebuggerObj>
+      ></MyDebuggerObj> */}
     </div>
   );
 }
