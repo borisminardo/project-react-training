@@ -86,11 +86,8 @@ export default function LandingTable() {
                   <td>
                     <Button onClick={() => openDetail(data)}>
                       <AiOutlineEdit />
-                    </Button>
-                    <Button
-                      onClick={() => deleteItem(data.id)}
-                      style={{ marginLeft: "5px" }}
-                    >
+                    </Button>{" "}
+                    <Button onClick={() => deleteItem(data.id)}>
                       <AiFillDelete />
                     </Button>
                   </td>
