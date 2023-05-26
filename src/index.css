@@ -74,6 +74,7 @@ a:hover {
   margin-top: 40px;
 }
 
+
 .form--row {
   float: left;
   margin-right: 20px;
@@ -318,6 +319,33 @@ a:hover {
   color: rgb(223, 223, 223) !important;
 }
 
+.userRxjs--list {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.landind--rxjs--page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 80px;
+}
+
+.padding--top--80 {
+  padding-top: 80px;
+}
+
+.stanza--display {
+  display: flex
+}
+
+.ml--5 {
+  margin-left: 5px;
+}
+
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -382,6 +410,33 @@ a:hover {
   .description--row {
     margin-top: 0;
   }
+
+  .landind--rxjs--page {
+    display: flex;
+    align-content: flex-start;
+    flex-direction: column-reverse;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .padding--top--80 {
+    padding-top: 0px;
+    padding-bottom: 50px;
+  }
+
+  .stanza--display {
+    display: block
+  }
+
+  .ml--5 {
+    margin-left: 0;
+  }
+
+  .landind--rxjs--page {
+    padding: 20px;
+  }
+
 }
 
 /* IPads vertical mode */

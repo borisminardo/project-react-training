@@ -1,41 +1,82 @@
-import { useEffect, useState, useMemo } from "react";
-import { User, list$ } from "../../shared/storage/storage";
+import { useMemo } from "react";
+import { UserProvider, useUser, User } from "../../shared/storage/storage";
+import { useObservableState } from "observable-hooks";
+import { BehaviorSubject, combineLatestWith, map } from "rxjs";
 import BaseInput from "../../components/atoms/baseUi/BaseInput";
 
+const Stanza = () => {
+  const { stanza$ } = useUser();
+  const stanza = useObservableState(stanza$, []);
+  return (
+    <div className="padding--top--80">
+      <h4>
+        <strong>Stanza</strong>
+      </h4>
+      <div>
+        {stanza.map((u: User) => {
+          return (
+            <div key={u.id} className="stanza--display">
+              <div>{u.email}</div>
+              <strong className="ml--5">
+                {" "}
+                {u.firstName} {u.lastName}
+              </strong>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
 const Search = () => {
-  const [search, setSearch] = useState("");
-  const [user, setUser] = useState<User[]>([]);
+  const { user$, selected$ } = useUser();
+  const cerca$ = useMemo(() => new BehaviorSubject(""), []);
 
-  useEffect(() => {
-    const sub = list$.subscribe(setUser);
-    return () => sub.unsubscribe();
-  }, []);
-
-  const filteredUsers = useMemo(() => {
-    return user.filter((u) =>
-      u.firstName.toLowerCase().includes(search.toLowerCase())
-    );
-  }, [user, search]);
+  const [filteredUsers] = useObservableState(
+    () =>
+      user$.pipe(
+        combineLatestWith(cerca$),
+        map(([user, cerca]) =>
+          user.filter((u: User) =>
+            u.firstName.toLowerCase().includes(cerca.toLowerCase())
+          )
+        )
+      ),
+    []
+  );
 
   return (
-    <div style={{ padding: "40px" }}>
+    <div>
       <BaseInput
         labelname="Ricerca"
         errormessage=""
         type="text"
-        value={search}
+        value={cerca$.value}
         onChange={(e) => {
-          setSearch(e.target.value);
+          cerca$.next(e.target.value);
         }}
       ></BaseInput>
       <div>
         <br />
-        {filteredUsers.map((u: any) => {
+        {filteredUsers.map((u: User) => {
           return (
-            <div key={u.id}>
+            <div key={u.id} className="userRxjs--list">
               <hr />
-              <strong>
-                {" "}
+              <input
+                type="checkbox"
+                checked={u.selected}
+                onChange={() => {
+                  if (selected$.value.includes(u.id)) {
+                    selected$.next(
+                      selected$.value.filter((id: number) => id !== u.id)
+                    );
+                  } else {
+                    selected$.next([...selected$.value, u.id]);
+                  }
+                }}
+              ></input>
+              <strong style={{ marginLeft: "5px" }}>
                 {u.firstName} {u.lastName}
               </strong>
               , {u.age} anni
@@ -48,5 +89,12 @@ const Search = () => {
 };
 
 export default function LandingTableRxjs() {
-  return <Search></Search>;
+  return (
+    <UserProvider>
+      <div className="landind--rxjs--page">
+        <Search></Search>
+        <Stanza></Stanza>
+      </div>
+    </UserProvider>
+  );
 }

@@ -1,4 +1,5 @@
-import { BehaviorSubject } from "rxjs";
+import { createContext, useContext } from "react";
+import { BehaviorSubject, map, combineLatestWith } from "rxjs";
 
 export interface User {
   id: number;
@@ -28,6 +29,7 @@ export interface User {
   ein: string;
   ssn: string;
   userAgent: string;
+  selected: boolean;
 }
 
 interface Company {
@@ -63,8 +65,49 @@ interface Hair {
   type: string;
 }
 
-export const list$ = new BehaviorSubject<User>([]);
-
+//chiama l'api rest e crea un subject con la risposta
 fetch("https://dummyjson.com/users")
   .then((res) => res.json())
   .then((data) => list$.next(data.users));
+
+//definisce un subject per la lista utenti
+const list$ = new BehaviorSubject<User[]>([]);
+
+//definisce un subject per gli id utenti selezionati
+const selected$ = new BehaviorSubject<number[]>([]);
+
+//combina i precedenti due subjects e tira fuori solo quelli selezionati
+const user$ = list$.pipe(
+  combineLatestWith(selected$),
+  map(([user, selected]: any) =>
+    user.map((u: User) => ({
+      ...u,
+      selected: selected.includes(u.id),
+    }))
+  )
+);
+//definisce un subject per la stanza
+const stanza$ = user$.pipe(
+  map((user: User[]) => user.filter((u) => u.selected))
+);
+
+const UserContext = createContext({
+  user$,
+  selected$,
+  stanza$,
+});
+
+export const useUser = () => useContext(UserContext);
+export const UserProvider: React.FunctionComponent = ({ children }) => {
+  return (
+    <UserContext.Provider
+      value={{
+        user$,
+        selected$,
+        stanza$,
+      }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
+};
