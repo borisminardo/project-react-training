@@ -76,28 +76,31 @@ const list$ = new BehaviorSubject<User[]>([]);
 //definisce un subject per gli id utenti selezionati
 const selected$ = new BehaviorSubject<number[]>([]);
 
-//combina i precedenti due subjects e tira fuori solo quelli selezionati
+//combina i precedenti due subjects: aggiungo la proprietà booleana "selected" alla lista degli utenti
 const user$ = list$.pipe(
   combineLatestWith(selected$),
-  map(([user, selected]: any) =>
+  map(([user, selected]) =>
     user.map((u: User) => ({
       ...u,
       selected: selected.includes(u.id),
     }))
   )
 );
-//definisce un subject per la stanza
+//definisce un subject per la stanza: crea la stanza filtrando gli utenti con il valore "selected" a true
 const stanza$ = user$.pipe(
   map((user: User[]) => user.filter((u) => u.selected))
 );
 
+//creo un context con i subjects che mi servono
 const UserContext = createContext({
   user$,
   selected$,
   stanza$,
 });
 
+//creo una funzione per usare il context appena creato
 export const useUser = () => useContext(UserContext);
+//creo un provider
 export const UserProvider: React.FunctionComponent = ({ children }) => {
   return (
     <UserContext.Provider

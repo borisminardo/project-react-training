@@ -92,8 +92,8 @@ export default function LandingTableRxjs() {
   return (
     <UserProvider>
       <div className="landind--rxjs--page">
-        <Search></Search>
-        <Stanza></Stanza>
+        <Search />
+        <Stanza />
       </div>
     </UserProvider>
   );
