@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 import { AiFillDelete } from "react-icons/ai";
 import { Button } from "react-bootstrap";
+import UImodal from "../../shared/modali/UImodal";
 
 export default function LandingTable() {
   const [data, setData] = React.useState([
@@ -34,16 +35,6 @@ export default function LandingTable() {
       occupazione: "Free time",
     },
   ]);
-  /*   useEffect(() => {
-    getData();
-  }, []);
-  const getData = () => {
-    fetch("https://jsonplaceholder.typicode.com/posts/1").then((response) => {
-      response.json();
-      setData(response);
-      console.log("data", data);
-    });
-  }; */
 
   type User = {
     userId: number;
@@ -84,7 +75,12 @@ export default function LandingTable() {
                   <td>{data.descrizione}</td>
                   <td>{data.occupazione}</td>
                   <td>
-                    <Button onClick={() => openDetail(data)}>
+                    <Button
+                      type="button"
+                      data-bs-toggle="modal"
+                      data-bs-target="#myModal"
+                      onClick={() => openDetail(data)}
+                    >
                       <AiOutlineEdit />
                     </Button>{" "}
                     <Button onClick={() => deleteItem(data.id)}>
@@ -96,7 +92,8 @@ export default function LandingTable() {
               return rows;
             })}
           </tbody>
-        </table>
+        </table>{" "}
+        <UImodal></UImodal>
       </div>
     </>
   );
