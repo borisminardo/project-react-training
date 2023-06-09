@@ -34,19 +34,6 @@ export const TextInputNome = () => {
   );
 };
 
-export const TextInputEmail = () => {
-  return (
-    <UIinput
-      labelname="Email*"
-      error={false}
-      errormessage=""
-      type="text"
-      id="email"
-      value="borisminardo@live.it"
-      placeholder=""
-    />
-  );
-};
 export const TextInputEmailError = () => {
   return (
     <UIinput
