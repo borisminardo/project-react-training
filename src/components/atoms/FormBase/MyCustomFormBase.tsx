@@ -12,6 +12,10 @@ import { radioButtonValues } from "../../../interfaces/viewModel/radioButtonNoti
 import BaseGroupRadioButton from "../baseUi/BaseGroupRadioButton";
 import BaseInputFiles from "../baseUi/BaseInputFiles";
 import UIinput from "../baseUiWrapper/input/UIinput";
+import { makeServer } from "../../../shared/service/server";
+import Spinner from "react-bootstrap/Spinner";
+
+const server = makeServer();
 
 function MyCustomFormBase() {
   //seleziona valore di default da 'selectValues'
@@ -44,10 +48,13 @@ function MyCustomFormBase() {
   });
 
   const [alert, setAlert] = useState(false);
+  const [errore, setErrore] = useState(false);
+  const [spinner, setSpinner] = useState(false);
 
   // al submit del button
-  function handleValidForm(event: any) {
+  const handleValidForm = async (event: React.FormEvent) => {
     event.preventDefault();
+
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(form.email)) {
       setFormError({
         ...formError,
@@ -60,10 +67,32 @@ function MyCustomFormBase() {
         ...formError,
         email: false,
       });
-      setAlert(true);
-      console.log(form);
+      setAlert(false);
+      try {
+        setSpinner(true);
+        setErrore(false);
+        const response = await fetch("/api/utente", {
+          method: "POST",
+          body: JSON.stringify({ form }),
+        });
+
+        if (response.ok) {
+          setAlert(true);
+          const user = await response.json();
+          console.log("User created:", user);
+          setSpinner(false);
+        } else {
+          setErrore(true);
+          console.error("Error creating user");
+          setSpinner(false);
+        }
+      } catch (error) {
+        setErrore(true);
+        console.error("Error creating user", error);
+        setSpinner(false);
+      }
     }
-  }
+  };
 
   function valida() {
     if (
@@ -72,7 +101,8 @@ function MyCustomFormBase() {
       form.telefono === "" ||
       form.email === "" ||
       form.paese === 0 ||
-      form.notificationRadio === 0
+      form.notificationRadio === 0 ||
+      spinner
     ) {
       return true;
     } else {
@@ -224,13 +254,29 @@ function MyCustomFormBase() {
               Submitted!
             </Alert>
           )}
+          {errore && (
+            <Alert
+              style={{ marginTop: "20px" }}
+              key={"danger"}
+              variant={"danger"}
+            >
+              Errore!
+            </Alert>
+          )}
           <div className="container--stepform-button">
             <div style={{ marginTop: "10px" }}>
-              <MyFormButton
-                disable={valida()}
-                type="submit"
-                titolo="Valida"
-              ></MyFormButton>
+              {!spinner && (
+                <MyFormButton
+                  disable={valida()}
+                  type="submit"
+                  titolo="Valida"
+                ></MyFormButton>
+              )}
+              {spinner && (
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              )}
             </div>
           </div>{" "}
           <MyDebuggerObj

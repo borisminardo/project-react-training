@@ -8,6 +8,7 @@ import { AccountForm } from "../../molecules/form/stepForm/AccountForm";
 import React from "react";
 import { Alert } from "react-bootstrap";
 import MyDebuggerObj from "../../../shared/debuggerPrinter/MyDebuggerObj";
+import Spinner from "react-bootstrap/Spinner";
 
 type FormData = {
   nome: string;
@@ -36,6 +37,8 @@ const INITIAL_STATE: FormData = {
 function MyStepFormBase() {
   const [form, setData] = React.useState(INITIAL_STATE);
   const [alert, setAlert] = React.useState(false);
+  const [errore, setErrore] = React.useState(false);
+  const [spinner, setSpinner] = React.useState(false);
 
   function updateFields(fields: Partial<FormData>) {
     setData((prev) => {
@@ -48,11 +51,34 @@ function MyStepFormBase() {
       <AddressForm {...form} updateFields={updateFields} />,
       <AccountForm {...form} updateFields={updateFields} />,
     ]);
-  function onSubmit(e: FormEvent) {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isLastStep) return next();
     setAlert(true);
-  }
+    try {
+      setSpinner(true);
+      setErrore(false);
+      const response = await fetch("/api/stepForm", {
+        method: "POST",
+        body: JSON.stringify({ form }),
+      });
+
+      if (response.ok) {
+        setAlert(true);
+        const user = await response.json();
+        console.log("Step form created:", user);
+        setSpinner(false);
+      } else {
+        setErrore(true);
+        console.error("Error creating Step form");
+        setSpinner(false);
+      }
+    } catch (error) {
+      setErrore(true);
+      console.error("Error creating Step form", error);
+      setSpinner(false);
+    }
+  };
   return (
     <div className="content container">
       <MyHeader
@@ -74,23 +100,33 @@ function MyStepFormBase() {
           </Alert>
         )}
         <div className="container--stepform-button">
-          <div style={{ marginTop: "10px" }}>
-            {!isFirstStep && (
-              <button
-                type="button"
-                onClick={back}
-                style={{ backgroundColor: "#0d6efd", color: "white" }}
-              >
-                Indietro
-              </button>
-            )}
-            <MyFormButton
-              type="button"
-              marginLeft={!isFirstStep ? true : false}
-              disable={false}
-              titolo={isLastStep ? "Finito" : "Avanti"}
-            ></MyFormButton>
-          </div>
+          {!spinner && (
+            <div style={{ marginTop: "10px" }}>
+              {!isFirstStep && (
+                <button
+                  type="button"
+                  onClick={back}
+                  style={{ backgroundColor: "#0d6efd", color: "white" }}
+                >
+                  Indietro
+                </button>
+              )}
+              {
+                <MyFormButton
+                  type="button"
+                  marginLeft={!isFirstStep ? true : false}
+                  disable={false}
+                  titolo={isLastStep ? "Finito" : "Avanti"}
+                ></MyFormButton>
+              }
+            </div>
+          )}
+
+          {spinner && (
+            <Spinner animation="border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          )}
         </div>
       </form>
       {/* <MyDebuggerObj
