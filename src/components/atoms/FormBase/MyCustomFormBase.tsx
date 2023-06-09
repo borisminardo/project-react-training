@@ -14,6 +14,7 @@ import BaseInputFiles from "../baseUi/BaseInputFiles";
 import UIinput from "../baseUiWrapper/input/UIinput";
 import { makeServer } from "../../../shared/service/server";
 import Spinner from "react-bootstrap/Spinner";
+import UItable from "../table/UITable";
 
 const server = makeServer();
 
@@ -46,6 +47,8 @@ function MyCustomFormBase() {
     notificationRadio: false,
     files: false,
   });
+
+  const [user, setUser] = useState([]);
 
   const [alert, setAlert] = useState(false);
   const [errore, setErrore] = useState(false);
@@ -107,6 +110,31 @@ function MyCustomFormBase() {
       return true;
     } else {
       return false;
+    }
+  }
+
+  async function showTable() {
+    console.log("show table");
+    try {
+      const response = await fetch("/api/utenti", {
+        method: "GET",
+      });
+      setSpinner(true);
+      if (response.ok) {
+        setAlert(true);
+        setSpinner(false);
+        const json = await response.json();
+        setUser(json.users);
+        console.log("Users shown:", user);
+      } else {
+        setSpinner(false);
+        setErrore(true);
+        console.error("Error fetching users");
+      }
+    } catch (error) {
+      setSpinner(false);
+      setErrore(true);
+      console.error("Error fetching users", error);
     }
   }
 
@@ -277,13 +305,58 @@ function MyCustomFormBase() {
                   <span className="visually-hidden">Loading...</span>
                 </Spinner>
               )}
+              {alert && (
+                <button
+                  type="button"
+                  onClick={showTable}
+                  style={{
+                    backgroundColor: "#0d6efd",
+                    color: "white",
+                    marginLeft: "5px",
+                  }}
+                >
+                  Mostra tabella dati
+                </button>
+              )}
             </div>
-          </div>{" "}
-          <MyDebuggerObj
+          </div>
+          <div className="homepage--box">
+            {user.length > 0 && (
+              <table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Cognome</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {user.map((data: any) => {
+                    const rows = (
+                      <tr key={data.id}>
+                        <th scope="row">{data.id}</th>
+                        <td>{data.form.nome}</td>
+                        <td>{data.form.cognome}</td>
+                        <td>{data.form.telefono}</td>
+                        <td>{data.form.email}</td>
+                        <td></td>
+                      </tr>
+                    );
+                    return rows;
+                  })}
+                </tbody>
+              </table>
+            )}
+          </div>
+          {/*           <UItable data={user}></UItable>
+           */}
+          {/* <MyDebuggerObj
             className="mt-3"
             obj={form}
             submitted={alert}
-          ></MyDebuggerObj>
+          ></MyDebuggerObj> */}
         </form>
       </div>
     </>

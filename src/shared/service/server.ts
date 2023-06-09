@@ -32,6 +32,11 @@ export function makeServer() {
         return user;
       });
 
+      this.get("/utenti", (schema) => {
+        const utenti = schema.all("user");
+        return utenti;
+      });
+
       this.post("/stepForm", (schema, request) => {
         const attrs = JSON.parse(request.requestBody);
         const user = schema.create("user", attrs);
