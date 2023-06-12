@@ -114,14 +114,14 @@ function MyCustomFormBase() {
   }
 
   async function showTable() {
+    setSpinner(true);
     console.log("show table");
     try {
       const response = await fetch("/api/utenti", {
         method: "GET",
       });
-      setSpinner(true);
+
       if (response.ok) {
-        setAlert(true);
         setSpinner(false);
         const json = await response.json();
         setUser(json.users);
@@ -305,7 +305,7 @@ function MyCustomFormBase() {
                   <span className="visually-hidden">Loading...</span>
                 </Spinner>
               )}
-              {alert && (
+              {!spinner && alert && (
                 <button
                   type="button"
                   onClick={showTable}
