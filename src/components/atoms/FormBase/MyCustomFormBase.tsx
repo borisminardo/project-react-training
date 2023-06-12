@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import MyDebuggerObj from "../../../shared/debuggerPrinter/MyDebuggerObj";
 import MyFormButton from "../formButton/MyFormButton";
@@ -14,11 +14,12 @@ import BaseInputFiles from "../baseUi/BaseInputFiles";
 import UIinput from "../baseUiWrapper/input/UIinput";
 import { makeServer } from "../../../shared/service/server";
 import Spinner from "react-bootstrap/Spinner";
-import UItable from "../table/UITable";
+import React, { createContext, useContext } from "react";
+import { UItable } from "../table/UITable";
 
 const server = makeServer();
 
-function MyCustomFormBase() {
+export default function MyCustomFormBase() {
   //seleziona valore di default da 'selectValues'
   const defaultValue = selectValues.find((item) => item.defaultValue)
     ? selectValues.find((item) => item.defaultValue)?.id
@@ -71,27 +72,22 @@ function MyCustomFormBase() {
         email: false,
       });
       setAlert(false);
-      try {
-        setSpinner(true);
-        setErrore(false);
-        const response = await fetch("/api/utente", {
-          method: "POST",
-          body: JSON.stringify({ form }),
-        });
 
-        if (response.ok) {
-          setAlert(true);
-          const user = await response.json();
-          console.log("User created:", user);
-          setSpinner(false);
-        } else {
-          setErrore(true);
-          console.error("Error creating user");
-          setSpinner(false);
-        }
-      } catch (error) {
+      setSpinner(true);
+      setErrore(false);
+      const response = await fetch("/api/utente", {
+        method: "POST",
+        body: JSON.stringify({ form }),
+      });
+
+      if (response.ok) {
+        setAlert(true);
+        const user = await response.json();
+        console.log("User created:", user);
+        setSpinner(false);
+      } else {
         setErrore(true);
-        console.error("Error creating user", error);
+        console.error("Error creating user");
         setSpinner(false);
       }
     }
@@ -113,28 +109,18 @@ function MyCustomFormBase() {
     }
   }
 
-  async function showTable() {
+  async function showTable(): Promise<void> {
     setSpinner(true);
-    console.log("show table");
-    try {
-      const response = await fetch("/api/utenti", {
-        method: "GET",
-      });
-
-      if (response.ok) {
-        setSpinner(false);
-        const json = await response.json();
-        setUser(json.users);
-        console.log("Users shown:", user);
-      } else {
-        setSpinner(false);
-        setErrore(true);
-        console.error("Error fetching users");
-      }
-    } catch (error) {
+    const response = await fetch("/api/utenti", {
+      method: "GET",
+    });
+    if (response.ok) {
+      setSpinner(false);
+      const json = await response.json();
+      setUser(json.users);
+    } else {
       setSpinner(false);
       setErrore(true);
-      console.error("Error fetching users", error);
     }
   }
 
@@ -320,48 +306,10 @@ function MyCustomFormBase() {
               )}
             </div>
           </div>
-          <div className="homepage--box">{user.length > 0 && table(user)}</div>
-          {/*           <UItable data={user}></UItable>
-           */}
-          {/* <MyDebuggerObj
-            className="mt-3"
-            obj={form}
-            submitted={alert}
-          ></MyDebuggerObj> */}
+          {/* TABELLA DATI */}
+          {user.length > 0 && <UItable data={user} />}
         </form>
       </div>
     </>
-  );
-}
-
-export default MyCustomFormBase;
-function table(user: never[]) {
-  return (
-    <table className="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Id</th>
-          <th scope="col">Nome</th>
-          <th scope="col">Cognome</th>
-          <th scope="col">Telefono</th>
-          <th scope="col">Email</th>
-        </tr>
-      </thead>
-      <tbody>
-        {user.map((data: any) => {
-          const rows = (
-            <tr key={data.id}>
-              <th scope="row">{data.id}</th>
-              <td>{data.form.nome}</td>
-              <td>{data.form.cognome}</td>
-              <td>{data.form.telefono}</td>
-              <td>{data.form.email}</td>
-              <td></td>
-            </tr>
-          );
-          return rows;
-        })}
-      </tbody>
-    </table>
   );
 }

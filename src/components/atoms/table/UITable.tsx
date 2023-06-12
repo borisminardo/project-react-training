@@ -1,4 +1,7 @@
-export default function UItable(user: never[]) {
+type ChildComponentProps = {
+  data: string[];
+};
+export const UItable: React.FC<ChildComponentProps> = ({ data }) => {
   return (
     <table className="table table-striped">
       <thead>
@@ -11,7 +14,7 @@ export default function UItable(user: never[]) {
         </tr>
       </thead>
       <tbody>
-        {user.map((data: any) => {
+        {data?.map((data: any) => {
           const rows = (
             <tr key={data.id}>
               <th scope="row">{data.id}</th>
@@ -27,4 +30,4 @@ export default function UItable(user: never[]) {
       </tbody>
     </table>
   );
-}
+};
