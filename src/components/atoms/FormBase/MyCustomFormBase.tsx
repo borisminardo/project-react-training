@@ -320,36 +320,7 @@ function MyCustomFormBase() {
               )}
             </div>
           </div>
-          <div className="homepage--box">
-            {user.length > 0 && (
-              <table className="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Cognome</th>
-                    <th scope="col">Telefono</th>
-                    <th scope="col">Email</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {user.map((data: any) => {
-                    const rows = (
-                      <tr key={data.id}>
-                        <th scope="row">{data.id}</th>
-                        <td>{data.form.nome}</td>
-                        <td>{data.form.cognome}</td>
-                        <td>{data.form.telefono}</td>
-                        <td>{data.form.email}</td>
-                        <td></td>
-                      </tr>
-                    );
-                    return rows;
-                  })}
-                </tbody>
-              </table>
-            )}
-          </div>
+          <div className="homepage--box">{user.length > 0 && table(user)}</div>
           {/*           <UItable data={user}></UItable>
            */}
           {/* <MyDebuggerObj
@@ -364,3 +335,33 @@ function MyCustomFormBase() {
 }
 
 export default MyCustomFormBase;
+function table(user: never[]) {
+  return (
+    <table className="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Cognome</th>
+          <th scope="col">Telefono</th>
+          <th scope="col">Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {user.map((data: any) => {
+          const rows = (
+            <tr key={data.id}>
+              <th scope="row">{data.id}</th>
+              <td>{data.form.nome}</td>
+              <td>{data.form.cognome}</td>
+              <td>{data.form.telefono}</td>
+              <td>{data.form.email}</td>
+              <td></td>
+            </tr>
+          );
+          return rows;
+        })}
+      </tbody>
+    </table>
+  );
+}
