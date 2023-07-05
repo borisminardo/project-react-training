@@ -17,7 +17,7 @@ import Spinner from "react-bootstrap/Spinner";
 import React, { createContext, useContext } from "react";
 import { UItable } from "../table/UITable";
 
-const server = makeServer();
+/* const server = makeServer(); */
 
 export default function MyCustomFormBase() {
   //seleziona valore di default da 'selectValues'

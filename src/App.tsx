@@ -6,6 +6,7 @@ import LandingStepForm from "./pages/landing/LandingStepForm";
 import Homepage from "./pages/landing/Homepage";
 import LandingTable from "./pages/landing/LandingTable";
 import LandingTableRxjs from "./pages/landing/LandingTableRxjs";
+import ReactQuery from "./pages/landing/ReactQuery";
 
 //pages
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="step-form" element={<LandingStepForm />} />
         <Route path="tabella" element={<LandingTable />} />
         <Route path="rxjs" element={<LandingTableRxjs />} />
+        <Route path="react-query" element={<ReactQuery />} />
       </Routes>
     </Router>
   );

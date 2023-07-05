@@ -21,6 +21,9 @@ export default function UINavbar() {
           <Link to="/rxjs" className="ui--navbar-links">
             Rxjs
           </Link>
+          <Link to="/react-query" className="ui--navbar-links">
+            React Query
+          </Link>
         </ul>
         <div className="ui--navbar-right ui--navbar-profile">
           <p>By. Boris Maria Minardo Incitti</p>
